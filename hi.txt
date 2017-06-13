@@ -1,1 +1,5 @@
-hi!
+Intructions:
+
+git add file
+git commit -m “name”
+git push -u origin master
