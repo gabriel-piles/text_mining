@@ -7,8 +7,8 @@ library(tidytext)
 library(dplyr)
 library(randomforrest)
 
-path_training <-  "/Users/gabo/Big_Data/pan-ap17-bigdata/training/"	# Your training path
-path_test <-  "/Users/gabo/Big_Data/pan-ap17-bigdata/test/"			# Your test path
+path_training <-  "/Users/gabo/Big_Data/pan-ap17-bigdata/training/"  # Your training path
+path_test <-  "/Users/gabo/Big_Data/pan-ap17-bigdata/test/"	
 
 GetRawWords <- function(path, variety, lowcase = TRUE, punctuations = TRUE, numbers = TRUE, whitespaces = TRUE, swlang = "", verbose = FALSE)
 {

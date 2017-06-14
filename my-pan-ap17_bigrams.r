@@ -225,12 +225,6 @@ GetBigrams <- function(corpus.preprocessed)
 rawWordsMale <- GetRawWords(path_training, TRUE, swlang="es", verbose = FALSE)
 rawWordsMale <-GetBigrams(rawWordsMale)
 
-test_fast <- rawWordsMale[1:3]
-
-result <- GetBigrams(test_fast)
-test_fast[1]
-result[1]
-
 rawWordsFemale <- GetRawWords(path_training, FALSE, swlang="es", verbose = FALSE)
 rawWordsFemale <-GetBigrams(rawWordsFemale)
 

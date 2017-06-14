@@ -6,8 +6,8 @@ library(caret)
 library(tidytext)
 library(dplyr)
 
-path_training <-  "/Users/gabo/Big_Data/pan-ap17-bigdata/training/"	# Your training path
-path_test <-  "/Users/gabo/Big_Data/pan-ap17-bigdata/test/"			# Your test path
+path_training <-  "/Users/gabo/Big_Data/pan-ap17-bigdata/training/"  # Your training path
+path_test <-  "/Users/gabo/Big_Data/pan-ap17-bigdata/test/"	
 
 GetRawWords <- function(path, male_bool, lowcase = TRUE, punctuations = TRUE, numbers = TRUE, whitespaces = TRUE, swlang = "", verbose = FALSE)
 {
@@ -44,12 +44,12 @@ GetRawWords <- function(path, male_bool, lowcase = TRUE, punctuations = TRUE, nu
   
   if (lowcase) {
     if (verbose) print("Tolower...")
-    corpus.preprocessed <- tolower(corpus.preprocessed)
+    #corpus.preprocessed <- tolower(corpus.preprocessed)
   }	
   
   if (punctuations) {
     if (verbose) print("Removing punctuations...")		
-    corpus.preprocessed <- removePunctuation(corpus.preprocessed)
+    #corpus.preprocessed <- removePunctuation(corpus.preprocessed)
   }
   
   if (numbers) {
@@ -62,8 +62,8 @@ GetRawWords <- function(path, male_bool, lowcase = TRUE, punctuations = TRUE, nu
     corpus.preprocessed <- removeWords(corpus.preprocessed, stopwords(swlang))
   }
   
-  if (verbose) print("Removing accents...")
-  corpus.preprocessed <- chartr("áéíóúàèìòùâêîôû", "aeiouaeiouaeiou", corpus.preprocessed)
+  #if (verbose) print("Removing accents...")
+  #corpus.preprocessed <- chartr("áéíóúàèìòùâêîôû", "aeiouaeiouaeiou", corpus.preprocessed)
 
   if (whitespaces) {
     if (verbose) print("Stripping whitestpaces...")
@@ -93,18 +93,18 @@ GenerateBoW <- function(path, vocabulary, n = 1000, lowcase = TRUE, punctuations
 		
 
 		if (lowcase) {
-			txtdata <- tolower(txtdata)
+			#txtdata <- tolower(txtdata)
 		}
 
 		if (punctuations) {
-			txtdata <- removePunctuation(txtdata)
+			#txtdata <- removePunctuation(txtdata)
 		}
 
 		if (numbers) {
 			txtdata <- removeNumbers(txtdata)
 		}
 		
-		txtdata <- chartr("áéíóúàèìòùâêîôû", "aeiouaeiouaeiou", txtdata)
+		#txtdata <- chartr("áéíóúàèìòùâêîôû", "aeiouaeiouaeiou", txtdata)
 		
 		if (whitespaces) {
 			txtdata <- stripWhitespace(txtdata)
@@ -144,9 +144,10 @@ GenerateBoW <- function(path, vocabulary, n = 1000, lowcase = TRUE, punctuations
 rawWordsMale <- GetRawWords(path_training, TRUE, swlang="es", verbose = FALSE)
 rawWordsFemale <- GetRawWords(path_training, FALSE, swlang="es", verbose = FALSE)
 
+number_words_per_class <- 1000
 
-frequentMale <- freq_terms(rawWordsMale, 1000)
-frequentFemale <- freq_terms(rawWordsFemale, 1000)
+frequentMale <- freq_terms(rawWordsMale, number_words_per_class)
+frequentFemale <- freq_terms(rawWordsFemale, number_words_per_class)
 
 frequentMale$gender <- "male"
 frequentFemale$gender <- "female"
@@ -195,10 +196,3 @@ fit <- randomForest(class~., data= training)
 
 prediction <- predict(fit, test)
 confusionMatrix(prediction, truth)
-
-
-
-
-
-
-
